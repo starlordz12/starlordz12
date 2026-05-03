@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>starlordz12</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <span class="logo">starlordz12</span>
+      <ul>
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="hero">
+      <div class="hero-content">
+        <p class="hero-tag">$ whoami</p>
+        <h1>Hey, I'm <span class="accent">starlordz12</span></h1>
+        <p class="hero-sub">I build things, break things, and document the chaos.</p>
+        <a href="#projects" class="btn">View Projects</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a tinkerer and hobbyist developer. I run a small homelab on Raspberry Pi 5s
+            and enjoy messing with hardware, automation, and whatever catches my interest.
+          </p>
+          <p>
+            This site is self-hosted on one of those RPis — because why not.
+          </p>
+        </div>
+        <div class="stack-list">
+          <h3>Things I use</h3>
+          <ul>
+            <li>Raspberry Pi 5</li>
+            <li>Linux / Nginx</li>
+            <li>Python</li>
+            <li>HTML / CSS / JS</li>
+            <li>Docker</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-grid" id="project-grid">
+
+        <article class="project-card">
+          <div class="card-header">
+            <span class="card-icon">&#9729;</span>
+            <span class="card-lang">Shell</span>
+          </div>
+          <h3>RPi Homelab</h3>
+          <p>A cluster of Raspberry Pi 5s running self-hosted services. Nginx, Docker, and too many tabs open.</p>
+          <div class="card-footer">
+            <span class="tag">homelab</span>
+            <span class="tag">rpi</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-header">
+            <span class="card-icon">&#9881;</span>
+            <span class="card-lang">Python</span>
+          </div>
+          <h3>Project Two</h3>
+          <p>Description of what this project does. Replace with your actual project details.</p>
+          <div class="card-footer">
+            <span class="tag">automation</span>
+            <span class="tag">python</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-header">
+            <span class="card-icon">&#128640;</span>
+            <span class="card-lang">WIP</span>
+          </div>
+          <h3>Coming Soon</h3>
+          <p>Something is cooking. Check back later.</p>
+          <div class="card-footer">
+            <span class="tag">wip</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-sub">Find me online or shoot me a message.</p>
+      <div class="contact-links">
+        <a href="https://github.com/starlordz12" class="contact-btn" target="_blank" rel="noopener">
+          GitHub
+        </a>
+        <!-- Add more links here: Reddit, Discord, email, etc. -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>self-hosted on a Raspberry Pi 5 &mdash; <span id="year"></span></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

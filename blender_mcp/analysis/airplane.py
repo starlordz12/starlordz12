@@ -1,26 +1,25 @@
 """
-Blender MCP Airplane Analysis Script
-=====================================
-Connects live to a running Blender MCP server (legacy addon.py or
-addon_turbo.py), creates a full set of airplane parts, measures wall-clock
-time for every operation in both sequential and batch modes, and writes a
-comprehensive analysis report to disk.
+blender_mcp.analysis.airplane
+==============================
+Airplane part analysis tool — importable module and CLI.
 
-Usage:
-  python analyze_airplane.py [--host localhost] [--port 9876] [--out report.md] [--legacy]
+As a module (called from server_turbo.py MCP tool):
+    from blender_mcp.analysis.airplane import run_analysis
+    report_md = run_analysis(host="localhost", port=9876)
 
-Requirements:
-  - Blender open with either the original addon.py OR addon_turbo.py running
-  - Python 3.10+ on your local machine (not inside Blender)
-  - No extra pip packages needed
+As a standalone CLI:
+    python -m blender_mcp.analysis.airplane [--host localhost] [--port 9876]
+                                            [--out report.md] [--legacy]
 
 What it does:
   Phase 0 — protocol detection & connection timing
-  Phase 1 — sequential part creation (one command per part)
+  Phase 1 — sequential part creation (one execute_code per part)
   Phase 2 — batch part creation   (all parts in one round-trip)
-  Phase 3 — scene interrogation   (vertex/face/memory stats)
-  Phase 4 — STL export timing
-  Phase 5 — report generation     (Markdown + console summary)
+  Phase 3 — batch_execute API     (turbo only)
+  Phase 4 — scene interrogation   (vertex / face / memory stats)
+  Phase 5 — geometry cleanup      (bmesh, per part)
+  Phase 6 — STL export timing
+  Report  — full Markdown written to disk and returned as string
 """
 
 import argparse
@@ -1012,6 +1011,71 @@ def _parse_result_line(resp: dict) -> tuple[int, int]:
                     try: fc = int(token.split("=")[1])
                     except ValueError: pass
     return vc, fc
+
+
+# ---------------------------------------------------------------------------
+# Public API — called by server_turbo.py MCP tool
+# ---------------------------------------------------------------------------
+
+def run_analysis(
+    host: str = "localhost",
+    port: int = 9876,
+    legacy: bool = False,
+    report_path: str = "AIRPLANE_ANALYSIS.md",
+    stl_export_path: str = "airplane_assembly.stl",
+) -> dict:
+    """
+    Run the full airplane analysis against a live Blender session.
+
+    Returns a dict with:
+      report_md   — full Markdown report as a string
+      report_path — path where the .md was saved
+      phases      — list of {name, elapsed_ms} timing summaries
+      scene_stats — final object/vertex/face counts
+      error       — set if connection failed, empty string otherwise
+    """
+    conn = BlenderConnection(host=host, port=port, legacy=legacy)
+    try:
+        conn.connect()
+    except (ConnectionRefusedError, OSError) as e:
+        return {
+            "error": (
+                f"Cannot connect to Blender on {host}:{port} — {e}. "
+                "Make sure Blender is open and the MCP addon server is running."
+            ),
+            "report_md":   "",
+            "report_path": "",
+            "phases":      [],
+            "scene_stats": {},
+        }
+
+    analysis = AirplaneAnalysis(conn)
+    try:
+        analysis.run(export_path=stl_export_path)
+    finally:
+        conn.close()
+
+    writer = ReportWriter(analysis)
+    report_md = writer.write(report_path)
+
+    phase_summary = [
+        {"name": p.name, "elapsed_ms": p.elapsed_ms}
+        for p in analysis.phases
+    ]
+    stats = analysis.scene_snapshots.get("after_batch")
+    scene_stats = {
+        "object_count":   stats.object_count    if stats else 0,
+        "total_vertices": stats.total_vertices  if stats else 0,
+        "total_faces":    stats.total_faces     if stats else 0,
+    }
+
+    return {
+        "error":       "",
+        "report_md":   report_md,
+        "report_path": os.path.abspath(report_path),
+        "phases":      phase_summary,
+        "scene_stats": scene_stats,
+    }
 
 
 # ---------------------------------------------------------------------------

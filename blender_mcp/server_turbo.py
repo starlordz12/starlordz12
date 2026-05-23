@@ -30,9 +30,13 @@ import zlib
 import struct
 import logging
 import sys
+import os
 from typing import Any
 
 log = logging.getLogger("blender_mcp_turbo.server")
+
+# Allow running server_turbo.py directly from its directory
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------------------
 # Blender connection config
@@ -427,6 +431,70 @@ def _build_mcp_server():
     async def get_performance_stats() -> str:
         """Get server-side performance statistics (queue depth, cache size, etc.)."""
         return await _run_command("get_perf_stats", {})
+
+    # ------------------------------------------------------------------
+    # Analysis tools
+    # ------------------------------------------------------------------
+
+    @mcp.tool()
+    async def analyze_airplane_parts(
+        report_path: str = "AIRPLANE_ANALYSIS.md",
+        stl_export_path: str = "airplane_assembly.stl",
+        legacy_protocol: bool = False,
+    ) -> str:
+        """
+        Connect live to Blender, create a full set of airplane parts, measure
+        performance across all phases, and produce a complete analysis report.
+
+        Runs 6 phases automatically:
+          Phase 0 — protocol detection & round-trip latency
+          Phase 1 — sequential part creation (fuselage, wings, nose, tail fins,
+                     engines, cockpit) — one execute_code per part, timed individually
+          Phase 2 — same parts in a single batched execute_code call
+          Phase 3 — batch_execute API (turbo addon only)
+          Phase 4 — scene interrogation: vertex/face counts per object
+          Phase 5 — geometry cleanup via bmesh (no edit-mode overhead)
+          Phase 6 — STL export timing
+
+        Returns the full Markdown report as a string and writes it to report_path.
+
+        report_path:      where to save the .md file (on this machine)
+        stl_export_path:  where Blender should write the STL (on the Blender machine)
+        legacy_protocol:  set true if using the original addon.py (plain-JSON protocol)
+        """
+        loop = asyncio.get_event_loop()
+        try:
+            from analysis.airplane import run_analysis
+        except ImportError:
+            return json.dumps({
+                "error": "analysis package not found — ensure blender_mcp/analysis/ is on the Python path"
+            })
+
+        result = await loop.run_in_executor(
+            None,
+            lambda: run_analysis(
+                host=BLENDER_HOST,
+                port=BLENDER_PORT,
+                legacy=legacy_protocol,
+                report_path=report_path,
+                stl_export_path=stl_export_path,
+            ),
+        )
+
+        if result.get("error"):
+            return json.dumps({"error": result["error"]}, indent=2)
+
+        # Return a concise summary + first 4000 chars of the report
+        summary = {
+            "report_path": result["report_path"],
+            "scene_stats": result["scene_stats"],
+            "phase_timings": result["phases"],
+            "report_preview": result["report_md"][:4000] + (
+                "\n\n...(truncated, see report_path for full report)"
+                if len(result["report_md"]) > 4000 else ""
+            ),
+        }
+        return json.dumps(summary, indent=2, default=str)
 
     return mcp
 

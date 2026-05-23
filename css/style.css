@@ -244,6 +244,16 @@ section {
   border-radius: 20px;
 }
 
+.tag-link {
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tag-link:hover {
+  background: rgba(88, 166, 255, 0.18);
+  border-color: rgba(88, 166, 255, 0.5);
+}
+
 /* ── Contact ── */
 .contact-sub {
   color: var(--muted);

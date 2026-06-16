@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="640" font-family="Helvetica,Arial,sans-serif">
+  <rect width="520" height="640" fill="#11131a"/>
+  <text x="260" y="34" fill="#e6e6e6" font-size="18" font-weight="bold" text-anchor="middle">Pager — Front Concept (84 × 46 × 14 mm)</text>
+
+  <!-- body -->
+  <rect x="140" y="70" width="240" height="470" rx="34" fill="#2b2f3a" stroke="#576074" stroke-width="3"/>
+  <rect x="152" y="82" width="216" height="446" rx="26" fill="#222633" stroke="#3a4156" />
+
+  <!-- NeoPixel halo ring around screen -->
+  <rect x="168" y="120" width="184" height="150" rx="16" fill="none" stroke="#7c5cff" stroke-width="6" opacity="0.55"/>
+  <rect x="168" y="120" width="184" height="150" rx="16" fill="none" stroke="#4fd18b" stroke-width="2" opacity="0.5"/>
+
+  <!-- e-ink screen -->
+  <rect x="176" y="128" width="168" height="134" rx="6" fill="#e9e7df" stroke="#cfcabd"/>
+  <text x="190" y="156" fill="#222" font-size="13" font-weight="bold">PAGER</text>
+  <line x1="190" y1="166" x2="330" y2="166" stroke="#b9b3a4"/>
+  <text x="190" y="196" fill="#111" font-size="17" font-weight="bold">Last call:</text>
+  <text x="190" y="220" fill="#111" font-size="20" font-weight="bold">Mom</text>
+  <text x="190" y="244" fill="#333" font-size="14">2:34 PM · today</text>
+  <rect x="300" y="134" width="38" height="16" rx="3" fill="none" stroke="#444"/>
+  <rect x="302" y="136" width="26" height="12" fill="#3a7d44"/>
+  <text x="319" y="146" fill="#fff" font-size="9" text-anchor="middle">78%</text>
+
+  <!-- buttons -->
+  <circle cx="210" cy="320" r="26" fill="#3a4156" stroke="#5b8def" stroke-width="2"/>
+  <text x="210" y="325" fill="#cfe0ff" font-size="12" text-anchor="middle">ACK</text>
+  <circle cx="310" cy="320" r="26" fill="#3a4156" stroke="#5b8def" stroke-width="2"/>
+  <text x="310" y="325" fill="#cfe0ff" font-size="11" text-anchor="middle">MENU</text>
+
+  <!-- speaker grille -->
+  <g fill="#11131a">
+    <circle cx="232" cy="392" r="3.2"/><circle cx="246" cy="392" r="3.2"/><circle cx="260" cy="392" r="3.2"/><circle cx="274" cy="392" r="3.2"/><circle cx="288" cy="392" r="3.2"/>
+    <circle cx="232" cy="406" r="3.2"/><circle cx="246" cy="406" r="3.2"/><circle cx="260" cy="406" r="3.2"/><circle cx="274" cy="406" r="3.2"/><circle cx="288" cy="406" r="3.2"/>
+    <circle cx="232" cy="420" r="3.2"/><circle cx="246" cy="420" r="3.2"/><circle cx="260" cy="420" r="3.2"/><circle cx="274" cy="420" r="3.2"/><circle cx="288" cy="420" r="3.2"/>
+  </g>
+  <text x="260" y="452" fill="#7b8494" font-size="11" text-anchor="middle">speaker</text>
+
+  <!-- audio slide switch on right edge -->
+  <rect x="380" y="300" width="14" height="44" rx="4" fill="#1a1d26" stroke="#ffb86b"/>
+  <rect x="382" y="304" width="10" height="18" rx="2" fill="#ffb86b"/>
+  <text x="430" y="318" fill="#ffd9a8" font-size="11" text-anchor="middle">AUDIO</text>
+  <text x="430" y="332" fill="#ffd9a8" font-size="11" text-anchor="middle">on/off</text>
+
+  <!-- USB-C bottom -->
+  <rect x="240" y="536" width="40" height="9" rx="4" fill="#1a1d26" stroke="#b07cff"/>
+  <text x="260" y="566" fill="#c9b3ff" font-size="11" text-anchor="middle">USB-C (charge + first flash)</text>
+
+  <!-- belt clip note -->
+  <text x="260" y="600" fill="#6b7280" font-size="11" text-anchor="middle">back: belt clip · 1100mAh LiPo · 4× M2 standoffs</text>
+  <text x="260" y="620" fill="#4fd18b" font-size="11" text-anchor="middle">bezel ring = 8× SK6812 notification halo</text>
+</svg>

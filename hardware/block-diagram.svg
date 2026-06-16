@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <rect width="900" height="620" fill="#0f1117"/>
+  <text x="450" y="34" fill="#e6e6e6" font-size="20" font-weight="bold" text-anchor="middle">ESP32-C6 Pager — System Block Diagram</text>
+
+  <!-- MCU -->
+  <rect x="350" y="250" width="200" height="120" rx="10" fill="#1e2a44" stroke="#5b8def" stroke-width="2"/>
+  <text x="450" y="300" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">ESP32-C6-WROOM-1</text>
+  <text x="450" y="322" fill="#9fb4e0" text-anchor="middle">Wi-Fi 6 (TWT) + BLE</text>
+  <text x="450" y="340" fill="#9fb4e0" text-anchor="middle">8MB flash · native USB</text>
+
+  <!-- USB / charge -->
+  <rect x="40" y="60" width="170" height="70" rx="8" fill="#23202e" stroke="#b07cff"/>
+  <text x="125" y="90" fill="#fff" text-anchor="middle">USB-C 5V</text>
+  <text x="125" y="110" fill="#c9b3ff" text-anchor="middle">+ USBLC6 ESD</text>
+
+  <rect x="40" y="160" width="170" height="70" rx="8" fill="#23202e" stroke="#b07cff"/>
+  <text x="125" y="190" fill="#fff" text-anchor="middle">MCP73831</text>
+  <text x="125" y="210" fill="#c9b3ff" text-anchor="middle">LiPo charger 500mA</text>
+
+  <rect x="40" y="270" width="170" height="70" rx="8" fill="#2a2320" stroke="#ffb86b"/>
+  <text x="125" y="300" fill="#fff" text-anchor="middle">LiPo 1100mAh</text>
+  <text x="125" y="320" fill="#ffd9a8" text-anchor="middle">~1 week</text>
+
+  <rect x="40" y="380" width="170" height="60" rx="8" fill="#23202e" stroke="#b07cff"/>
+  <text x="125" y="406" fill="#fff" text-anchor="middle">MAX17048</text>
+  <text x="125" y="424" fill="#c9b3ff" text-anchor="middle">fuel gauge (I2C)</text>
+
+  <rect x="40" y="470" width="170" height="60" rx="8" fill="#23202e" stroke="#b07cff"/>
+  <text x="125" y="496" fill="#fff" text-anchor="middle">TLV75533 LDO</text>
+  <text x="125" y="514" fill="#c9b3ff" text-anchor="middle">3V3 low-Iq rail</text>
+
+  <!-- Right: peripherals -->
+  <rect x="690" y="80" width="180" height="70" rx="8" fill="#172a22" stroke="#4fd18b"/>
+  <text x="780" y="108" fill="#fff" text-anchor="middle">2.9" e-ink</text>
+  <text x="780" y="128" fill="#a7e9c8" text-anchor="middle">SSD1680 · SPI</text>
+
+  <rect x="690" y="180" width="180" height="80" rx="8" fill="#172a22" stroke="#4fd18b"/>
+  <text x="780" y="206" fill="#fff" text-anchor="middle">MAX98357A amp</text>
+  <text x="780" y="226" fill="#a7e9c8" text-anchor="middle">I2S → speaker</text>
+  <text x="780" y="246" fill="#ffd9a8" text-anchor="middle">⟶ AUDIO slide switch</text>
+
+  <rect x="690" y="290" width="180" height="80" rx="8" fill="#172a22" stroke="#4fd18b"/>
+  <text x="780" y="316" fill="#fff" text-anchor="middle">8× SK6812 ring</text>
+  <text x="780" y="336" fill="#a7e9c8" text-anchor="middle">1-wire · power-gated</text>
+  <text x="780" y="356" fill="#ff9b9b" text-anchor="middle">P-FET kills idle draw</text>
+
+  <rect x="690" y="400" width="180" height="70" rx="8" fill="#172a22" stroke="#4fd18b"/>
+  <text x="780" y="428" fill="#fff" text-anchor="middle">2× buttons</text>
+  <text x="780" y="448" fill="#a7e9c8" text-anchor="middle">ACK / MENU (wake)</text>
+
+  <!-- Lines left -->
+  <g stroke="#5b8def" stroke-width="2" fill="none">
+    <path d="M210 95 L300 95 L300 60"/>
+    <path d="M210 195 L125 195"/>
+    <path d="M125 130 L125 160"/>
+    <path d="M125 230 L125 270"/>
+    <path d="M125 340 L125 380"/>
+    <path d="M125 440 L125 470"/>
+    <path d="M210 500 L300 500 L300 370 L350 330"/>
+    <path d="M210 410 L300 410 L300 300 L350 300" stroke="#b07cff"/>
+    <path d="M210 95 L240 95 L240 250 L350 270" stroke="#b07cff" stroke-dasharray="4 3"/>
+  </g>
+  <!-- Lines right -->
+  <g stroke="#4fd18b" stroke-width="2" fill="none">
+    <path d="M550 280 L620 280 L620 115 L690 115"/>
+    <path d="M550 300 L640 300 L640 220 L690 220"/>
+    <path d="M550 320 L660 320 L660 330 L690 330"/>
+    <path d="M550 340 L620 340 L620 435 L690 435"/>
+  </g>
+
+  <text x="450" y="600" fill="#6b7280" text-anchor="middle">USB only for first flash — config + firmware after that ride Wi-Fi (web portal + OTA)</text>
+</svg>

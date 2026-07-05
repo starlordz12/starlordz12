@@ -20,7 +20,7 @@ I use **[Claude Code](https://claude.com/claude-code)** to build genuinely usefu
 | --- | --- |
 | [LocalMeshAI](https://github.com/starlordz12/LocalMeshAI) | Local-first, AI-assisted STL mesh editor for 3D printing: view → orient → edit → export. |
 | [Thrust-Vectoring](https://github.com/starlordz12/Thrust-Vectoring) | Dual-axis thrust-vectoring nozzle system for an 80 mm EDF RC jet. |
-| [GooSky-S1](https://github.com/starlordz12/GooSky-S1) | EdgeTX/ELRS setup, Lua tools, and docs for the GooSky S1 3D helicopter. |
+| [GooSky-S1-V2](https://github.com/starlordz12/GooSky-S1-V2) | EdgeTX/ELRS setup, Lua tools, and docs for the GooSky S1 V2 3D helicopter. |
 
 > ⚙️ Most of these are experimental and move fast — check each repo's README for its current status before relying on it.
 
